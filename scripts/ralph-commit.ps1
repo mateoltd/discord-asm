@@ -12,7 +12,7 @@ while ($true) {
       $firstBullet = Select-String -Path "CHANGELOG.md" -Pattern '^- ' -SimpleMatch | Select-Object -First 1
       if ($firstBullet) { $title = ($firstBullet.Line -replace '^- ', '') -replace '`','' }
     }
-    $msg = "$MsgPrefix: " + ($(if ($title) {$title} else {"automated commit"}))
+$msg = "${MsgPrefix}: " + ($(if ($title) {$title} else {"automated commit"}))
     git add -A
     git commit -m $msg 2>$null | Out-Null
     git pull --rebase --autostash 2>$null | Out-Null
