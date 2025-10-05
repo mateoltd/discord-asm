@@ -377,3 +377,10 @@ Require stack:
 [2025-10-05T23:15:30.426Z] [ERROR] Iteration prompt execution failed: spawn copilot ENOENT
 [2025-10-05T23:15:35.438Z] [INFO] Starting iteration 4
 [2025-10-05T23:15:35.438Z] [INFO] Auto-committing changes
+[2025-10-05T23:15:36.328Z] [INFO] Ralph Loop Supervisor starting...
+[2025-10-05T23:15:36.330Z] [INFO] Seeding Copilot session with initial commands
+[2025-10-05T23:15:36.331Z] [INFO] Executing prompt: Load PROMPT.md and prepare for iterative developme...
+[2025-10-05T23:15:36.333Z] [ERROR] Failed to seed session: spawn EINVAL
+[2025-10-05T23:15:36.334Z] [INFO] Continuing with iterations anyway...
+[2025-10-05T23:15:37.335Z] [INFO] Starting iteration 1
+[2025-10-05T23:15:37.336Z] [INFO] Auto-committing changes
