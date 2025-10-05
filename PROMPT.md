@@ -63,8 +63,6 @@ Design and implement a cross-platform **Discord bot framework in Assembly** (x86
 4) DOCS: Update ADRs/README/CHANGELOG describing what and why.
 5) NEXT: Output the next TODO list with risk notes.
 
-At the end of every iteration, print a single line containing only: RALPH_NEXT
-
 ## Quality bar
 - Clear comments in assembly (purpose of each label/routine + calling convention).
 - No silent changes: every iteration updates ADRs + CHANGELOG.
