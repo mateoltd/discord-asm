@@ -428,3 +428,12 @@ Require stack:
 [2025-10-05T23:16:02.783Z] [INFO] Auto-committing changes
 [2025-10-05T23:16:04.273Z] [INFO] Starting iteration 5
 [2025-10-05T23:16:04.273Z] [INFO] Auto-committing changes
+[2025-10-05T23:16:04.539Z] [INFO] Auto-commit completed successfully
+[2025-10-05T23:16:04.540Z] [INFO] Executing prompt: Begin the NEXT iteration using the Iteration templ...
+[2025-10-05T23:16:04.543Z] [ERROR] Failed to execute prompt: spawn copilot ENOENT
+[2025-10-05T23:16:04.544Z] [ERROR] Iteration prompt execution failed: spawn copilot ENOENT
+[2025-10-05T23:16:05.981Z] [INFO] Auto-commit completed successfully
+[2025-10-05T23:16:05.981Z] [INFO] Executing prompt: Begin the NEXT iteration using the Iteration templ...
+[2025-10-05T23:16:05.983Z] [ERROR] Iteration prompt execution failed: spawn EINVAL
+[2025-10-05T23:16:09.552Z] [INFO] Starting iteration 9
+[2025-10-05T23:16:09.553Z] [INFO] Auto-committing changes
