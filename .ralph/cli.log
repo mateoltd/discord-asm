@@ -359,3 +359,9 @@ Require stack:
 [2025-10-05T23:15:13.739Z] [INFO] Continuing with iterations anyway...
 [2025-10-05T23:15:14.743Z] [INFO] Starting iteration 1
 [2025-10-05T23:15:14.744Z] [INFO] Auto-committing changes
+[2025-10-05T23:15:16.783Z] [INFO] Auto-commit completed successfully
+[2025-10-05T23:15:16.784Z] [INFO] Executing prompt: Begin the NEXT iteration using the Iteration templ...
+[2025-10-05T23:15:16.788Z] [ERROR] Failed to execute prompt: spawn copilot ENOENT
+[2025-10-05T23:15:16.788Z] [ERROR] Iteration prompt execution failed: spawn copilot ENOENT
+[2025-10-05T23:15:21.801Z] [INFO] Starting iteration 2
+[2025-10-05T23:15:21.802Z] [INFO] Auto-committing changes
