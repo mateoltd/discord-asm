@@ -41,7 +41,13 @@ Cross-platform **Discord bot framework in Assembly** (x86-64 first; AArch64 late
 
 ## Status
 
-MVP target: connect to Gateway (WSS) → receive **Hello** → send **Identify** → schedule **Heartbeat** → graceful close. Past MVP we add resume/reconnect, a table-driven event dispatcher, and minimal REST helpers (send message).
+✅ **MVP Implemented**: Core Gateway client with Hello/Identify/Heartbeat protocol support  
+✅ **Cross-platform C Shim**: WebSocket, JSON parsing, and timing functions  
+✅ **Assembly Gateway Core**: Main event loop and state management in x86-64 Assembly  
+✅ **Test Suite**: Unit tests for JSON parsing and heartbeat timing  
+🔄 **Dependencies**: Requires libwebsockets + OpenSSL for full build  
+
+**Next**: Add reconnect/resume logic, table-driven event dispatcher, and minimal REST helpers.
 
 ---
 
@@ -315,9 +321,13 @@ The C shim exposes a small, stable surface (documented in `include/abi.h`) that 
 
 ## Roadmap
 
-* ✅ MVP: Hello/Identify/Heartbeat
-* ⏭ Reconnect/Resume, backoff & jitter
-* ⏭ Table-driven dispatcher + macro DSL for handlers
+* ✅ MVP: Hello/Identify/Heartbeat Gateway client
+* ✅ Cross-platform C shim (WebSocket/JSON/timing)  
+* ✅ Assembly x64 core with event loop
+* ✅ Basic test suite and documentation
+* ⏭ Full build system with dependency detection
+* ⏭ Reconnect/Resume with backoff & jitter
+* ⏭ Table-driven event dispatcher + macro DSL for handlers
 * ⏭ Minimal REST helpers (send message)
 * ⏭ AArch64 builds (macOS ARM64, Linux ARM64)
 * ⏭ CI matrix (Windows/macOS/Linux) + prebuilt artifacts
