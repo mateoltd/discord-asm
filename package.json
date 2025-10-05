@@ -1,0 +1,23 @@
+{
+  "name": "discord-asm-ralph",
+  "version": "0.1.0",
+  "description": "Ralph loop supervisor for Discord ASM development",
+  "main": "scripts/ralph-loop.js",
+  "scripts": {
+    "ralph": "node scripts/ralph-loop.js"
+  },
+  "optionalDependencies": {
+    "node-pty": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": [
+    "discord",
+    "assembly",
+    "copilot",
+    "automation"
+  ],
+  "author": "",
+  "license": "MIT"
+}

@@ -21,6 +21,7 @@ Cross-platform **Discord bot framework in Assembly** (x86-64 first; AArch64 late
 * [Configuration](#configuration)
 * [Running the Examples](#running-the-examples)
 * [Development Workflow (Copilot CLI)](#development-workflow-copilot-cli)
+* [Ralph Loop Supervisor (Automated Development)](#ralph-loop-supervisor-automated-development)
 * [Testing](#testing)
 * [ABI & Calling Conventions](#abi--calling-conventions)
 * [Docs & ADRs](#docs--adrs)
@@ -111,9 +112,9 @@ discord-asm/
 
   * OpenSSL (or mbedTLS)
   * libwebsockets (or equivalent)
-* **Node.js (for Copilot CLI only)**
+* **Node.js**
 
-  * Node.js ≥ 22 and npm ≥ 10
+  * Node.js ≥ 16 and npm ≥ 7 (for Copilot CLI and Ralph loop supervisor)
 
 > We use the **standalone Copilot CLI** (from `npm`). We do **not** use the GitHub CLI extension.
 
@@ -250,6 +251,122 @@ copilot
 * NEXT (print a short TODO list)
 
 > Keep commits small. Each iteration should either pass tests or add a failing test with a clear next step.
+
+---
+
+## Ralph Loop Supervisor (Automated Development)
+
+For unattended, continuous development cycles, use the **Ralph loop supervisor** — an automation harness that keeps Copilot CLI running indefinitely and drives iterative development based on Geoffrey Huntley's Ralph/Cursed experiments.
+
+### Features
+
+* 🤖 **Automated iterations**: Executes prompts sequentially, detecting `RALPH_NEXT` to trigger next iteration
+* 💾 **Auto-commit**: Commits and pushes changes after each completed iteration
+* 📝 **Comprehensive logging**: All Copilot output logged to `.ralph/cli.log` with timestamps
+* 🖥️ **Cross-platform**: Works on Windows, macOS, and Linux
+* 🔄 **Error recovery**: Continues iterations even when individual prompts fail
+* ⚡ **Direct execution**: Uses Copilot CLI's `-p` flag for reliable, non-interactive prompt execution
+
+### Prerequisites
+
+* **Node.js ≥ 16** (for the supervisor)
+* **Authenticated Copilot CLI** (standalone CLI, not GitHub CLI extension)
+* **Git configured** with push access to origin
+
+### Quick Start
+
+**Windows (PowerShell)**:
+
+```powershell
+# From repo root
+.\scripts\ralph-loop.ps1
+```
+
+**macOS/Linux**:
+
+```bash
+# From repo root
+node scripts/ralph-loop.js
+```
+
+### Configuration
+
+The supervisor accepts environment variables:
+
+```bash
+# Custom Copilot command (default: 'copilot')
+export RALPH_COPILOT_CMD="gh copilot"
+
+# Inactivity timeout in milliseconds (default: 120000)
+export RALPH_INACTIVITY_TIMEOUT=60000
+
+# Disable auto-restart (default: false)
+export RALPH_NO_RESTART=true
+```
+
+### PowerShell Options
+
+```powershell
+# Show help
+.\scripts\ralph-loop.ps1 -Help
+
+# Custom inactivity timeout
+.\scripts\ralph-loop.ps1 -InactivityTimeout 60
+
+# Custom Copilot command
+.\scripts\ralph-loop.ps1 -CopilotCommand "gh copilot"
+
+# Disable restart on crashes
+.\scripts\ralph-loop.ps1 -NoRestart
+```
+
+### How It Works
+
+1. **Session seeding**: Executes initial prompt to load `PROMPT.md` and prepare for development
+2. **Iteration execution**: Runs each iteration as a separate Copilot CLI prompt execution
+3. **Sentinel detection**: Checks prompt output for `RALPH_NEXT` to trigger next iteration
+4. **Auto-commit**: After each successful iteration, runs `git add -A && git commit -m "ralph: iteration <timestamp>" && git push origin main`
+5. **Error recovery**: Continues with next iteration even if individual prompts fail
+
+### Stopping the Loop
+
+* **Graceful**: Press `Ctrl+C` (sends SIGINT, allows current iteration to complete)
+* **Force**: `Ctrl+C` twice quickly or kill the process
+
+### Log Monitoring
+
+Monitor progress in real-time:
+
+```bash
+# Tail the log
+tail -f .ralph/cli.log
+
+# Or with timestamps
+tail -f .ralph/cli.log | grep "$(date +%Y-%m-%d)"
+```
+
+### Troubleshooting
+
+**"node-pty not found" or compilation errors**:
+```bash
+npm install
+```
+Note: On Windows, node-pty may fail to compile due to missing Visual Studio components. The Ralph loop will automatically fall back to using `spawn` which provides basic functionality but may require manual interaction for some Copilot CLI prompts.
+
+**"Copilot CLI not found"**:
+```bash
+npm install -g @github/copilot
+copilot  # Then /login
+```
+
+**Permission denied on push**:
+Ensure your Git remote is configured with SSH keys or personal access tokens.
+
+**Loop not detecting RALPH_NEXT**:
+Verify Copilot is using the iteration template from `PROMPT.md` and ending iterations with `RALPH_NEXT`.
+
+**Windows node-pty compilation issues**:
+If you see Spectre mitigation library errors, the supervisor will automatically use spawn fallback mode. For full PTY support, install the "MSVC v142 - VS 2019 C++ x64/x86 Spectre-mitigated libs" component in Visual Studio Installer.
 
 ---
 
