@@ -101,9 +101,9 @@ class RalphSupervisor {
     }
   }
 
+  // No longer needed - we execute prompts directly
   startCopilot() {
-    this.log(`Copilot CLI ready for prompt execution`);
-    // No need to start a persistent process - we'll execute prompts directly
+    this.log(`Copilot CLI ready for direct prompt execution`);
   }
 
   executePrompt(prompt) {
