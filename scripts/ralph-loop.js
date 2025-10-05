@@ -22,7 +22,7 @@ const { spawn, exec } = require('child_process');
 
 // Configuration (with environment variable support)
 const CONFIG = {
-  COPILOT_CMD: process.env.RALPH_COPILOT_CMD || 'copilot',
+  COPILOT_CMD: process.env.RALPH_COPILOT_CMD || (process.platform === 'win32' ? 'copilot.cmd' : 'copilot'),
   LOG_FILE: path.join('.ralph', 'cli.log'),
   MAX_LOG_SIZE: 10 * 1024 * 1024, // 10MB
   RALPH_NEXT_SENTINEL: 'RALPH_NEXT',
